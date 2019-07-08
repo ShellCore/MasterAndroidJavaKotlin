@@ -2,16 +2,13 @@ package com.shell.android.recyclerview
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-
-import com.shell.android.recyclerview.dummy.DummyContent
-import com.shell.android.recyclerview.dummy.DummyContent.DummyItem
 
 /**
  * A fragment representing a list of Items.
@@ -19,6 +16,11 @@ import com.shell.android.recyclerview.dummy.DummyContent.DummyItem
  * [RestauranteFragment.OnListFragmentInteractionListener] interface.
  */
 class RestauranteFragment : Fragment() {
+
+    private lateinit var recView: RecyclerView
+    private lateinit var recAdapter: MyRestauranteRecyclerViewAdapter
+
+    private lateinit var restaurantes : ArrayList<Restaurante>
 
     // TODO: Customize parameters
     private var columnCount = 1
@@ -33,12 +35,23 @@ class RestauranteFragment : Fragment() {
 
         // Set the adapter
         if (view is RecyclerView) {
-            with(view) {
+            recView = view as RecyclerView;
+            with(recView) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyRestauranteRecyclerViewAdapter(DummyContent.ITEMS, listener)
+
+                // Lista de elementos (Restaurantes)
+                restaurantes = ArrayList()
+                restaurantes.addAll(listOf(
+                    Restaurante("Pizerria Carlos", "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80", 4.0f, "Madrid, España"),
+                    Restaurante("Hamburquesería rápida", "https://i.ytimg.com/vi/BfCwN4iy6T8/maxresdefault.jpg", 5.0f, "Distrito Federal, México")
+                ))
+
+                // Asociamos el adaptador al RecyclerView
+                recAdapter = MyRestauranteRecyclerViewAdapter(restaurantes, listener)
+                adapter = recAdapter
             }
         }
         return view
@@ -71,7 +84,7 @@ class RestauranteFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(item: Restaurante?)
     }
 
 }
