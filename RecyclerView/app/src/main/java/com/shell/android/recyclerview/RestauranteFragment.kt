@@ -45,8 +45,8 @@ class RestauranteFragment : Fragment() {
                 // Lista de elementos (Restaurantes)
                 restaurantes = ArrayList()
                 restaurantes.addAll(listOf(
-                    Restaurante("Pizerria Carlos", "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80", 4.0f, "Madrid, España"),
-                    Restaurante("Hamburquesería rápida", "https://i.ytimg.com/vi/BfCwN4iy6T8/maxresdefault.jpg", 5.0f, "Distrito Federal, México")
+                    Restaurante("Pizerria Carlos", "https://cdn2.cocinadelirante.com/sites/default/files/styles/gallerie/public/images/2017/04/pizzapepperoni0.jpg", 4.0f, "Madrid, España"),
+                    Restaurante("Hamburquesería rápida", "https://cdn.vox-cdn.com/thumbor/_C1ugN0jUg2uYg5PQOyz4eumEAY=/0x444:7115x5780/1200x800/filters:focal(0x444:7115x5780)/cdn.vox-cdn.com/uploads/chorus_image/image/49565113/shutterstock_333689708.0.0.jpg", 5.0f, "Distrito Federal, México")
                 ))
 
                 // Asociamos el adaptador al RecyclerView

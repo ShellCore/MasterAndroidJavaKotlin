@@ -60,6 +60,8 @@ class MyRestauranteRecyclerViewAdapter(
                 rtnRestauranteVal.rating = mItem.valoracion
                 Picasso.get()
                     .load(mItem.urlPhoto)
+                    .resize(400, 150)
+                    .centerCrop()
                     .into(imgRestaurantePhoto)
             }
         }
