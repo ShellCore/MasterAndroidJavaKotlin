@@ -4,13 +4,18 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_notes.*
 
 class NotesActivity : AppCompatActivity(), NotesInteractionListener {
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+
+        var fragment : Fragment? = null
+
         when (item.itemId) {
             R.id.navigation_home -> {
-                return@OnNavigationItemSelectedListener true
+                fragment = NoteFragment()
             }
             R.id.navigation_dashboard -> {
                 return@OnNavigationItemSelectedListener true
@@ -19,6 +24,13 @@ class NotesActivity : AppCompatActivity(), NotesInteractionListener {
                 return@OnNavigationItemSelectedListener true
             }
         }
+
+        fragment?.apply {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frameContainer, this)
+                .commit()
+        }
+
         false
     }
 
@@ -26,8 +38,11 @@ class NotesActivity : AppCompatActivity(), NotesInteractionListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        supportFragmentManager.beginTransaction()
+            .add(R.id.frameContainer, NoteFragment())
+            .commit()
     }
 
     override fun editNoteClick(note: Note) {

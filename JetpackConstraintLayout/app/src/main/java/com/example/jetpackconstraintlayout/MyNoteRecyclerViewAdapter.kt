@@ -36,6 +36,7 @@ class MyNoteRecyclerViewAdapter(
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         lateinit var note: Note
+        val container = mView.cardContainer
         val txtTitle = mView.txtTitle
         val txtContent = mView.txtContent
         val imgFav = mView.imgFav

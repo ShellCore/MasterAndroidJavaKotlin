@@ -2,21 +2,21 @@ package com.example.jetpackconstraintlayout
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 class NoteFragment : Fragment() {
 
-    lateinit var notes : ArrayList<Note>
+    lateinit var notes : List<Note>
     lateinit var recAdapter : MyNoteRecyclerViewAdapter
 
     // TODO: Customize parameters
-    private var columnCount = 1
+    private var columnCount = 2
 
     private var listener: NotesInteractionListener? = null
 
@@ -31,8 +31,21 @@ class NoteFragment : Fragment() {
             with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
+                    else -> {
+                        val displayMetrics = context.resources.displayMetrics
+                        val dpWidth : Float = displayMetrics.widthPixels / displayMetrics.density
+                        val columnNum = (dpWidth / 180).toInt()
+
+                        StaggeredGridLayoutManager(columnNum, StaggeredGridLayoutManager.VERTICAL)
+                    }
                 }
+
+                notes = listOf(
+                    Note("Lista de compra", "Comprar pan tostado", false, android.R.color.holo_blue_light),
+                    Note("Recordar", "He aparcado el coche en la calle República Argentina, no olvidarme de pagar en el parquímetro", true, android.R.color.holo_green_light),
+                    Note("Cumpleaños (fiesta)", "No olvidar las velas", false, android.R.color.holo_red_light)
+                )
+
                 recAdapter = MyNoteRecyclerViewAdapter(notes, listener)
                 adapter = recAdapter
             }
