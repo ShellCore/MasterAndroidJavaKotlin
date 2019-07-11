@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_notes.*
 
-class NotesActivity : AppCompatActivity(), NotesInteractionListener {
+class DashboardActivity : AppCompatActivity() {
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
@@ -43,17 +43,5 @@ class NotesActivity : AppCompatActivity(), NotesInteractionListener {
         supportFragmentManager.beginTransaction()
             .add(R.id.frameContainer, NoteFragment())
             .commit()
-    }
-
-    override fun editNoteClick(note: Note) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun deleteNoteClick(note: Note) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun favNoteClick(note: Note) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

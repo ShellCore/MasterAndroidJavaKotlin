@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         btnLogin.setOnClickListener {
-            startActivity(Intent(this, NotesActivity::class.java))
+            startActivity(Intent(this, DashboardActivity::class.java))
         }
     }
 }
