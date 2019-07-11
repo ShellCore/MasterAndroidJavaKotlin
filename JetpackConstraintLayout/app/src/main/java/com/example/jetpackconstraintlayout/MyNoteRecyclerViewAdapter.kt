@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 
 import kotlinx.android.synthetic.main.fragment_note.view.*
 
@@ -30,13 +32,15 @@ class MyNoteRecyclerViewAdapter(
         holder.imgFav.setOnClickListener {
             mListener?.favNoteClick(holder.note)
         }
+
+        holder.cardContainer.setCardBackgroundColor(ContextCompat.getColor(holder.mView.context, holder.note.color))
     }
 
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         lateinit var note: Note
-        val container = mView.cardContainer
+        val cardContainer : CardView = mView.cardContainer
         val txtTitle = mView.txtTitle
         val txtContent = mView.txtContent
         val imgFav = mView.imgFav
