@@ -7,7 +7,7 @@
                                                    android:background="@color/colorPrimary"
                                                    android:backgroundTint="@color/colorPrimary"
                                                    android:padding="8dp"
-                                                   tools:context=".MainActivity">
+                                                   tools:context=".ui.MainActivity">
 
     <ImageView
             android:id="@+id/imageView"

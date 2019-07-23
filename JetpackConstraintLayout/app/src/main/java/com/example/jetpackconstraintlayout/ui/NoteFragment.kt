@@ -1,4 +1,4 @@
-package com.example.jetpackconstraintlayout
+package com.example.jetpackconstraintlayout.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.jetpackconstraintlayout.R
+import com.example.jetpackconstraintlayout.db.entity.NoteEntity
 
 class NoteFragment : Fragment() {
 
@@ -39,9 +41,24 @@ class NoteFragment : Fragment() {
                 }
 
                 noteEntities = listOf(
-                    NoteEntity("Lista de compra", "Comprar pan tostado", false, android.R.color.holo_blue_light),
-                    NoteEntity("Recordar", "He aparcado el coche en la calle República Argentina, no olvidarme de pagar en el parquímetro", true, android.R.color.holo_green_light),
-                    NoteEntity("Cumpleaños (fiesta)", "No olvidar las velas", false, android.R.color.holo_red_light)
+                    NoteEntity(
+                        title = "Lista de compra",
+                        content = "Comprar pan tostado",
+                        fav = false,
+                        color = android.R.color.holo_blue_light
+                    ),
+                    NoteEntity(
+                        title = "Recordar",
+                        content = "He aparcado el coche en la calle República Argentina, no olvidarme de pagar en el parquímetro",
+                        fav = true,
+                        color = android.R.color.holo_green_light
+                    ),
+                    NoteEntity(
+                        title = "Cumpleaños (fiesta)",
+                        content = "No olvidar las velas",
+                        fav = false,
+                        color = android.R.color.holo_red_light
+                    )
                 )
 
                 recAdapter = MyNoteRecyclerViewAdapter(noteEntities, context)

@@ -1,4 +1,4 @@
-package com.example.jetpackconstraintlayout
+package com.example.jetpackconstraintlayout.ui
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.example.jetpackconstraintlayout.db.entity.NoteEntity
+import com.example.jetpackconstraintlayout.R
 
 import kotlinx.android.synthetic.main.fragment_note.view.*
 
@@ -27,7 +29,7 @@ class MyNoteRecyclerViewAdapter(
         holder.txtTitle.text = holder.noteEntity.title
         holder.txtContent.text = holder.noteEntity.content
 
-        holder.imgFav.setImageResource( if (holder.noteEntity.fav) R.drawable.ic_star_black_24dp else R.drawable.ic_star_border_black_24dp )
+        holder.imgFav.setImageResource( if (holder.noteEntity.fav) R.drawable.ic_star_black_24dp else R.drawable.ic_star_border_black_24dp)
 
         holder.imgFav.setOnClickListener {
             // TODO No implementado

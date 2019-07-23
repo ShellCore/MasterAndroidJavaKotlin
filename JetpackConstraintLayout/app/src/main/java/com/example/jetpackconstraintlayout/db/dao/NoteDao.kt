@@ -1,10 +1,11 @@
-package com.example.jetpackconstraintlayout
+package com.example.jetpackconstraintlayout.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.example.jetpackconstraintlayout.db.entity.NoteEntity
 
 @Dao
 interface NoteDao {
