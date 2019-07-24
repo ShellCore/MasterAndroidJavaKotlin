@@ -7,14 +7,14 @@ import com.example.jetpackconstraintlayout.db.NoteRoomDatabase
 import com.example.jetpackconstraintlayout.db.dao.NoteDao
 import com.example.jetpackconstraintlayout.db.entity.NoteEntity
 
-class NoteRepository {
+class NoteRepository(app: Application) {
 
-    lateinit var noteDao: NoteDao
-    lateinit var allNotes: LiveData<List<NoteEntity>>
-    lateinit var favNotes: LiveData<List<NoteEntity>>
+    var noteDao: NoteDao
+    var allNotes: LiveData<List<NoteEntity>>
+    var favNotes: LiveData<List<NoteEntity>>
 
-    fun NoteRepository(app : Application) {
-        var db : NoteRoomDatabase = NoteRoomDatabase.getDatabase(app)
+    init {
+        val db : NoteRoomDatabase = NoteRoomDatabase.getDatabase(app)
         noteDao = db.notaDao()
         allNotes = noteDao.getAll()
         favNotes = noteDao.getAllFavorites()

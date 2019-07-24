@@ -11,5 +11,5 @@ data class NoteEntity (
     var title : String,
     var content : String,
     var fav : Boolean,
-    var color : Int
+    var color : String
 )

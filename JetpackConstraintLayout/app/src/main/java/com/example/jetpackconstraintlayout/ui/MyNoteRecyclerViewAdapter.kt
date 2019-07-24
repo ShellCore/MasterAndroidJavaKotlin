@@ -13,7 +13,7 @@ import com.example.jetpackconstraintlayout.R
 import kotlinx.android.synthetic.main.fragment_note.view.*
 
 class MyNoteRecyclerViewAdapter(
-    private val mValues: List<NoteEntity>,
+    private var mValues: List<NoteEntity>,
     private val context: Context
 ) : RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder>() {
 
@@ -34,11 +34,14 @@ class MyNoteRecyclerViewAdapter(
         holder.imgFav.setOnClickListener {
             // TODO No implementado
         }
-
-        holder.cardContainer.setCardBackgroundColor(ContextCompat.getColor(holder.mView.context, holder.noteEntity.color))
     }
 
     override fun getItemCount(): Int = mValues.size
+
+    fun setNewNotes(newNotes : List<NoteEntity>) {
+        mValues = newNotes
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         lateinit var noteEntity: NoteEntity

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -13,6 +15,7 @@ import com.example.jetpackconstraintlayout.db.entity.NoteEntity
 
 class NoteFragment : Fragment() {
 
+    private lateinit var noteViewModel: NewNoteDialogViewModel
     lateinit var noteEntities : List<NoteEntity>
     lateinit var recAdapter : MyNoteRecyclerViewAdapter
 
@@ -40,31 +43,21 @@ class NoteFragment : Fragment() {
 
                 }
 
-                noteEntities = listOf(
-                    NoteEntity(
-                        title = "Lista de compra",
-                        content = "Comprar pan tostado",
-                        fav = false,
-                        color = android.R.color.holo_blue_light
-                    ),
-                    NoteEntity(
-                        title = "Recordar",
-                        content = "He aparcado el coche en la calle República Argentina, no olvidarme de pagar en el parquímetro",
-                        fav = true,
-                        color = android.R.color.holo_green_light
-                    ),
-                    NoteEntity(
-                        title = "Cumpleaños (fiesta)",
-                        content = "No olvidar las velas",
-                        fav = false,
-                        color = android.R.color.holo_red_light
-                    )
-                )
+                noteEntities = ArrayList()
 
                 recAdapter = MyNoteRecyclerViewAdapter(noteEntities, context)
                 adapter = recAdapter
+
+                throwViewModel()
             }
         }
         return view
+    }
+
+    private fun throwViewModel() {
+        noteViewModel = ViewModelProviders.of(activity!!).get(NewNoteDialogViewModel::class.java)
+        noteViewModel.getAllNotes().observe(activity!!, Observer {
+            recAdapter.setNewNotes(it)
+        })
     }
 }

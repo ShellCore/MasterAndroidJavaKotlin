@@ -13,6 +13,7 @@ import android.widget.Switch
 import androidx.fragment.app.DialogFragment
 
 import com.example.jetpackconstraintlayout.R
+import com.example.jetpackconstraintlayout.db.entity.NoteEntity
 import kotlinx.android.synthetic.main.new_note_dialog_fragment.*
 
 class NewNoteDialogFragment : DialogFragment() {
@@ -22,18 +23,11 @@ class NewNoteDialogFragment : DialogFragment() {
     }
 
     private lateinit var dialogView: View
-    private lateinit var viewModel: NewNoteDialogViewModel
 
     private lateinit var edtTitle: EditText
     private lateinit var edtContent: EditText
     private lateinit var rgColors: RadioGroup
     private lateinit var swFavorite: Switch
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NewNoteDialogViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dialogView = layoutInflater.inflate(R.layout.new_note_dialog_fragment, null)
@@ -46,9 +40,10 @@ class NewNoteDialogFragment : DialogFragment() {
             setTitle("Nueva nota")
             setPositiveButton("Guardar") { _, _ ->
                 saveNote()
+                dialog.dismiss()
             }
             setNegativeButton("Cancelar") { _, _ ->
-                // TODO
+                dialog.dismiss()
             }
         }
 
@@ -56,14 +51,18 @@ class NewNoteDialogFragment : DialogFragment() {
     }
 
     private fun saveNote() {
-        val title = edtTitle.text
-        val content = edtContent.text
+        val title = edtTitle.text.toString()
+        val content = edtContent.text.toString()
         val color = when(rgColors.checkedRadioButtonId) {
             R.id.rbRed -> "rojo"
             R.id.rbGreen -> "verde"
             else -> "azul"
         }
         val fav = swFavorite.isChecked
+
+        // Comunicar al Viewmodel el nuevo dato.
+        val viewModel = ViewModelProviders.of(activity!!).get(NewNoteDialogViewModel::class.java)
+        viewModel.insertNote(NoteEntity(title = title, content = content, color = color, fav = fav))
     }
 
     private fun getComponents(view: View) {
