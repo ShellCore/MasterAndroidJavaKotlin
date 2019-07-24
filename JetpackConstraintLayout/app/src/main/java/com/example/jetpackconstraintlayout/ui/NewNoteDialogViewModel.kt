@@ -8,8 +8,8 @@ import com.example.jetpackconstraintlayout.db.entity.NoteEntity
 
 class NewNoteDialogViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var notes : LiveData<List<NoteEntity>>
     private var noteRepository: NoteRepository = NoteRepository(application)
+    private var notes : LiveData<List<NoteEntity>>
 
     init {
         notes = noteRepository.getAll()

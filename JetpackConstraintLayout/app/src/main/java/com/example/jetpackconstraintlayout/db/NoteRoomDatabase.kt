@@ -7,10 +7,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.jetpackconstraintlayout.db.dao.NoteDao
 import com.example.jetpackconstraintlayout.db.entity.NoteEntity
+
 @Database(entities = [NoteEntity::class], version = 1)
 abstract class NoteRoomDatabase : RoomDatabase() {
 
-    abstract fun notaDao() : NoteDao
+    abstract fun noteDao() : NoteDao
 
     companion object {
 
@@ -26,7 +27,7 @@ abstract class NoteRoomDatabase : RoomDatabase() {
 
             synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context,
+                    context.applicationContext,
                     NoteRoomDatabase::class.java,
                     "notes_db"
                     ).build()

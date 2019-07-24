@@ -15,7 +15,7 @@ class NoteRepository(app: Application) {
 
     init {
         val db : NoteRoomDatabase = NoteRoomDatabase.getDatabase(app)
-        noteDao = db.notaDao()
+        noteDao = db.noteDao()
         allNotes = noteDao.getAll()
         favNotes = noteDao.getAllFavorites()
     }

@@ -1,9 +1,7 @@
 package com.example.jetpackconstraintlayout.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -54,10 +52,29 @@ class NoteFragment : Fragment() {
         return view
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+
+        inflater?.inflate(R.menu.menu_note_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item!!.itemId) {
+            R.id.actionAddNote -> {
+                showAddNoteDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun throwViewModel() {
         noteViewModel = ViewModelProviders.of(activity!!).get(NewNoteDialogViewModel::class.java)
         noteViewModel.getAllNotes().observe(activity!!, Observer {
             recAdapter.setNewNotes(it)
         })
+    }
+
+    private fun showAddNoteDialog() {
+        NewNoteDialogFragment().show(activity!!.supportFragmentManager, "NewNoteDialogFramgnent")
     }
 }
