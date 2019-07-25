@@ -23,12 +23,21 @@ class NoteRepository(app: Application) {
     fun getAll() = allNotes
     fun getFavorites() = favNotes
     fun insert(note: NoteEntity) = InsertAsyncTask(noteDao).execute(note)
+    fun update(note: NoteEntity) = UpdateAsyncTask(noteDao).execute(note)
 
 
     private class InsertAsyncTask(var noteDaoAsyncTask : NoteDao) : AsyncTask<NoteEntity, Void, Void>() {
 
         override fun doInBackground(vararg notes: NoteEntity): Void? {
             noteDaoAsyncTask.create(notes[0])
+            return null
+        }
+    }
+
+    private class UpdateAsyncTask(var noteDaoAsyncTask : NoteDao) : AsyncTask<NoteEntity, Void, Void>() {
+
+        override fun doInBackground(vararg notes: NoteEntity): Void? {
+            noteDaoAsyncTask.update(notes[0])
             return null
         }
     }

@@ -20,4 +20,6 @@ class NewNoteDialogViewModel(application: Application) : AndroidViewModel(applic
 
     // El fragment que inserte una nueva nota, deerá comunicarlo a este ViewModel
     fun insertNote(note: NoteEntity) = noteRepository.insert(note)
+
+    fun updatetNote(note: NoteEntity) = noteRepository.update(note)
 }
