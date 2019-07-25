@@ -30,10 +30,10 @@ class NewNoteDialogFragment : DialogFragment() {
     private lateinit var swFavorite: Switch
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        dialogView = layoutInflater.inflate(R.layout.new_note_dialog_fragment, null)
+        dialogView = activity!!.layoutInflater.inflate(R.layout.new_note_dialog_fragment, null)
         getComponents(dialogView)
 
-        var builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(activity)
         builder.apply {
             setView(dialogView)
             setMessage("Introduzca los datos de la nueva nota")

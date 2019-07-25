@@ -17,8 +17,12 @@ class NoteFragment : Fragment() {
     lateinit var noteEntities : List<NoteEntity>
     lateinit var recAdapter : MyNoteRecyclerViewAdapter
 
-    // TODO: Customize parameters
-    private var columnCount = 2
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Indicamos que el fragmento tiene un menú de opciones propio
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,8 +73,8 @@ class NoteFragment : Fragment() {
 
     private fun throwViewModel() {
         noteViewModel = ViewModelProviders.of(activity!!).get(NewNoteDialogViewModel::class.java)
-        noteViewModel.getAllNotes().observe(activity!!, Observer {
-            recAdapter.setNewNotes(it)
+        noteViewModel.getAllNotes().observe(activity!!, Observer {newNotes ->
+            recAdapter.setNewNotes(newNotes)
         })
     }
 
