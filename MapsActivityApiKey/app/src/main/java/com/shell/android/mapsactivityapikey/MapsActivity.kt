@@ -9,13 +9,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener,
+    GoogleMap.OnMarkerDragListener {
     private lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +35,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        // Click sobre el mapa
+        mMap.setOnMapClickListener(this)
+
+        // Eventos en los markers
+        mMap.setOnMarkerDragListener(this)
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
@@ -63,6 +66,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         } catch (e : Resources.NotFoundException) {
             Log.e("TAG", "Can't find style. Error: $e")
+        }
+    }
+
+    override fun onMapClick(pos: LatLng) {
+        mMap.addMarker(MarkerOptions().position(pos)
+            .title("Nuevo Marker")
+            .draggable(true))
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(pos))
+    }
+
+    override fun onMarkerDragStart(marker: Marker) {
+        marker.hideInfoWindow()
+    }
+
+    override fun onMarkerDrag(marker: Marker) {
+    }
+
+    override fun onMarkerDragEnd(marker: Marker) {
+        marker.apply {
+            snippet = "${position.latitude}, ${position.longitude}"
+            showInfoWindow()
         }
     }
 }
