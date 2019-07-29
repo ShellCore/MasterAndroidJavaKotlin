@@ -8,3 +8,5 @@
     android:layout_height="match_parent"
     map:uiZoomControls="true"
     tools:context=".MapsActivity" />
+
+<!-- map:liteMode="true" -->
