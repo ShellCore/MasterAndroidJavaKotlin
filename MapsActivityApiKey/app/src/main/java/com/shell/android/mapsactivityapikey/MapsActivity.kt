@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
@@ -40,7 +41,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        val sydneyMarker = mMap.addMarker(MarkerOptions()
+            .position(sydney)
+            .title("Marker in Sydney")
+            .snippet("Ahora mismo no estamos aqui")
+            .draggable(true)
+//            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin))
+        )
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
         // Aplicando estilo al mapa
