@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Mini Twitter</string>
+
+    <!--Login-->
+    <string name="login_hint_email">Correo electrónico</string>
+    <string name="login_hint_password">Contraseña</string>
+    <string name="login_btn_login">Ingresar</string>
+    <string name="login_btn_signup">Registrarse</string>
+    <string name="login_description_logo">Logo</string>
 </resources>
