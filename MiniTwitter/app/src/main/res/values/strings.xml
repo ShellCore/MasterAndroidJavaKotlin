@@ -2,9 +2,24 @@
     <string name="app_name">Mini Twitter</string>
 
     <!--Login-->
-    <string name="login_hint_email">Correo electrónico</string>
-    <string name="login_hint_password">Contraseña</string>
+    <string name="login_hint_email">@string/common_email</string>
+    <string name="login_hint_password">@string/common_password</string>
     <string name="login_btn_login">Ingresar</string>
-    <string name="login_btn_signup">Registrarse</string>
+    <string name="login_btn_signup">@string/common_signup</string>
     <string name="login_description_logo">Logo</string>
+
+    <!--Signup-->
+    <string name="signup_hint_username">@string/common_username</string>
+    <string name="signup_hint_email">@string/common_email</string>
+    <string name="signup_hint_password">@string/common_password</string>
+    <string name="signup_btn_signup">@string/common_signup</string>
+    <string name="signup_btn_login">Si ya dispone de una cuenta, inicie sesoión aquí</string>
+
+    <!--Commons-->
+    <string name="common_username">Usuario</string>
+    <string name="common_email">Correo electrónico</string>
+    <string name="common_password">Contraseña</string>
+    <string name="common_signup">Registrarse</string>
+
+
 </resources>
