@@ -1,9 +1,10 @@
-package com.shell.android.minitwitter
+package com.shell.android.minitwitter.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.shell.android.minitwitter.R
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity(), View.OnClickListener {

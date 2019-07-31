@@ -7,6 +7,8 @@
     <string name="login_btn_login">Ingresar</string>
     <string name="login_btn_signup">@string/common_signup</string>
     <string name="login_description_logo">Logo</string>
+    <string name="login_error_email_required">El email es requerido</string>
+    <string name="login_error_password_required">La contraseña es requerida</string>
 
     <!--Signup-->
     <string name="signup_hint_username">@string/common_username</string>
@@ -15,11 +17,22 @@
     <string name="signup_btn_signup">@string/common_signup</string>
     <string name="signup_btn_login">Si ya dispone de una cuenta, inicie sesión aquí</string>
 
+    <!--Dashboard-->
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+
     <!--Commons-->
     <string name="common_username">Usuario</string>
     <string name="common_email">Correo electrónico</string>
     <string name="common_password">Contraseña</string>
     <string name="common_signup">Registrarse</string>
 
+    <!--Services-->
+    <string name="login_message_ok">Sesión iniciada correctamente</string>
+    <string name="login_message_error_noAuth">Hubo un error de autenticación. Revise sus credenciales</string>
 
+    <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
 </resources>

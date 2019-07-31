@@ -9,9 +9,9 @@ import retrofit2.http.POST
 
 interface MiniTwitterService {
 
-    @POST("/auth/login")
+    @POST("auth/login")
     fun login(@Body request: LoginRequest) : Call<AuthResponse>
 
-    @POST("/auth/signup")
+    @POST("auth/signup")
     fun signup(@Body request: SignupRequest) : Call<AuthResponse>
 }

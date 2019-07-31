@@ -4,10 +4,18 @@ import com.shell.android.minitwitter.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MiniTwitterClient() {
+class MiniTwitterClient {
 
     companion object {
         private var instance : MiniTwitterClient? = null
+
+        // Patrón Singleton
+        fun getInstance(): MiniTwitterClient {
+            if (instance == null) {
+                instance = MiniTwitterClient()
+            }
+            return instance!!
+        }
     }
 
     private var retrofit: Retrofit = Retrofit.Builder()
@@ -20,14 +28,4 @@ class MiniTwitterClient() {
     init {
         miniTwitterService = retrofit.create(MiniTwitterService::class.java)
     }
-
-    // Patrón Singleton
-    fun getInstance(): MiniTwitterClient {
-        if (instance == null) {
-            instance = MiniTwitterClient()
-        }
-        return instance!!
-    }
-
-
 }
