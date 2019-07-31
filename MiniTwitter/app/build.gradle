@@ -20,6 +20,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            buildConfigField "String", "KEY_CODE", project.property('KEY_CODE')
+        }
     }
 }
 
