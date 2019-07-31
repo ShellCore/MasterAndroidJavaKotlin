@@ -22,6 +22,7 @@ android {
         }
         applicationVariants.all { variant ->
             buildConfigField "String", "KEY_CODE", project.property('KEY_CODE')
+            buildConfigField "String", "API_MINITWITTER_BASE_URL", project.property('API_MINITWITTER_BASE_URL')
         }
     }
 }
