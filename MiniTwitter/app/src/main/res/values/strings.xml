@@ -13,7 +13,7 @@
     <string name="signup_hint_email">@string/common_email</string>
     <string name="signup_hint_password">@string/common_password</string>
     <string name="signup_btn_signup">@string/common_signup</string>
-    <string name="signup_btn_login">Si ya dispone de una cuenta, inicie sesoión aquí</string>
+    <string name="signup_btn_login">Si ya dispone de una cuenta, inicie sesión aquí</string>
 
     <!--Commons-->
     <string name="common_username">Usuario</string>
