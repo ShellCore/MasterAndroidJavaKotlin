@@ -16,10 +16,7 @@
     <string name="signup_btn_login">Si ya dispone de una cuenta, inicie sesión aquí</string>
 
     <!--Dashboard-->
-    <string name="title_activity_dashboard">DashboardActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_dashboard">Inicio</string>
 
     <!--Validations-->
     <string name="edt_error_required">Este campo es requerido</string>
@@ -39,6 +36,5 @@
 
     <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
     <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
-
 
 </resources>

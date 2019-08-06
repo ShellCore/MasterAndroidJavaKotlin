@@ -17,15 +17,15 @@ class DashboardActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                textMessage.setText(R.string.title_home)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                textMessage.setText(R.string.title_dashboard)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                textMessage.setText(R.string.title_notifications)
+
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -35,12 +35,13 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        val navView: BottomNavigationView = findViewById(R.id.dahsboardNavView)
 
-        textMessage = findViewById(R.id.message)
+        supportActionBar?.hide()
+
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         val credential : Credential? = getCredentialFromSharedPreferences()
-        container.showMessage("Token : ${credential?.token}", Snackbar.LENGTH_LONG)
+        dashboardContainer.showMessage("Token : ${credential?.token}", Snackbar.LENGTH_LONG)
     }
 }
