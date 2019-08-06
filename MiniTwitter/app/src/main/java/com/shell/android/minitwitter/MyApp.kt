@@ -6,11 +6,10 @@ class MyApp : Application() {
 
     companion object {
         var instance : MyApp? = null
+        fun getContext() = instance
     }
 
     fun getInstance() = instance
-
-    fun getContext() = instance
 
     override fun onCreate() {
         instance = this

@@ -5,39 +5,38 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.shell.android.minitwitter.R
-import com.shell.android.minitwitter.rest.base.MiniTwitterClient
-import com.shell.android.minitwitter.rest.base.MiniTwitterService
+import com.shell.android.minitwitter.extensions.saveToSharedPreferences
+import com.shell.android.minitwitter.model.Credential
 import com.shell.android.minitwitter.rest.services.auth.response.AuthResponse
-import com.shell.android.minitwitter.rest.services.login.request.LoginRequest
-import com.shell.android.minitwitter.showMessage
+import com.shell.android.minitwitter.rest.services.login.LoginCallback
+import com.shell.android.minitwitter.rest.services.login.LoginRepository
+import com.shell.android.minitwitter.rest.services.login.LoginRepositoryImpl
+import com.shell.android.minitwitter.extensions.showMessage
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, LoginCallback {
 
-    private lateinit var service: MiniTwitterService
-    private lateinit var client: MiniTwitterClient
+
+
+
+    private lateinit var repository: LoginRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide()
 
-        initRetrofit()
+        initRepository()
         setupOnclick()
     }
 
-    private fun initRetrofit() {
-        client = MiniTwitterClient.getInstance()
-        service = client.miniTwitterService
-
+    override fun onLoginSuccess(response: AuthResponse) {
+        saveCredentials(response)
+        gotoDashboardActivity()
     }
 
-    private fun setupOnclick() {
-        btnLogin.setOnClickListener(this)
-        btnSignup.setOnClickListener(this)
+    override fun onLoginError(message: String) {
+        mainContainer.showMessage(message)
     }
 
     override fun onClick(itemView: View) {
@@ -47,37 +46,38 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun initRepository() {
+        repository = LoginRepositoryImpl(this, this)
+    }
+
+    private fun setupOnclick() {
+        btnLogin.setOnClickListener(this)
+        btnSignup.setOnClickListener(this)
+    }
+
     private fun gotoLogin() {
         val email = edtEmail.text.toString()
         val password = edtPassword.text.toString()
 
-        if (email.isEmpty()) {
-            edtEmail.error = getString(R.string.login_error_email_required)
-        } else if (password.isEmpty()) {
-            edtPassword.error = getString(R.string.login_error_password_required)
-        } else {
-            val loginRequest = LoginRequest(email, password)
-            val call = service.login(loginRequest)
-            call.enqueue(object : Callback<AuthResponse> {
-
-                override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                    if (response.isSuccessful) {
-                        mainContainer.showMessage(getString(R.string.login_message_ok))
-                        gotoDashboardActivity()
-                    } else {
-                        mainContainer.showMessage(getString(R.string.login_message_error_noAuth))
-                    }
-                }
-
-                override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                    mainContainer.showMessage(getString(R.string.rest_message_error_failure))
-                }
-            })
+        when {
+            email.isEmpty() -> edtEmail.error = getString(R.string.edt_error_required)
+            password.isEmpty() -> edtPassword.error = getString(R.string.edt_error_required)
+            else -> repository.doLogin(email, password)
         }
     }
 
-    private fun gotoSignup() {
-        startActivity(Intent(this, SignupActivity::class.java))
+    private fun gotoSignup() = startActivity(Intent(this, SignupActivity::class.java))
+
+    private fun saveCredentials(response : AuthResponse) {
+        val credential = Credential(
+            response.token,
+            response.username,
+            response.email,
+            response.photoUrl,
+            response.created,
+            response.active)
+
+        credential.saveToSharedPreferences()
     }
 
     private fun gotoDashboardActivity() {
@@ -86,3 +86,4 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 }
+

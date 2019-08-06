@@ -7,8 +7,6 @@
     <string name="login_btn_login">Ingresar</string>
     <string name="login_btn_signup">@string/common_signup</string>
     <string name="login_description_logo">Logo</string>
-    <string name="login_error_email_required">El email es requerido</string>
-    <string name="login_error_password_required">La contraseña es requerida</string>
 
     <!--Signup-->
     <string name="signup_hint_username">@string/common_username</string>
@@ -23,6 +21,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!--Validations-->
+    <string name="edt_error_required">Este campo es requerido</string>
+    <string name="edt_error_min_length">Debe de tener al menos %d caracteres</string>
 
     <!--Commons-->
     <string name="common_username">Usuario</string>
@@ -34,5 +35,10 @@
     <string name="login_message_ok">Sesión iniciada correctamente</string>
     <string name="login_message_error_noAuth">Hubo un error de autenticación. Revise sus credenciales</string>
 
+    <string name="signup_message_ok">Usuario creado correctamente</string>
+
     <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
+    <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
+
+
 </resources>

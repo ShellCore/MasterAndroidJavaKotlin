@@ -4,7 +4,12 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import com.google.android.material.snackbar.Snackbar
 import com.shell.android.minitwitter.R
+import com.shell.android.minitwitter.extensions.getCredentialFromSharedPreferences
+import com.shell.android.minitwitter.extensions.showMessage
+import com.shell.android.minitwitter.model.Credential
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -34,5 +39,8 @@ class DashboardActivity : AppCompatActivity() {
 
         textMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        val credential : Credential? = getCredentialFromSharedPreferences()
+        container.showMessage("Token : ${credential?.token}", Snackbar.LENGTH_LONG)
     }
 }

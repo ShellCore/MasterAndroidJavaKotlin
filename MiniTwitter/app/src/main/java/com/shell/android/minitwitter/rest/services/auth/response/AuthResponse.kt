@@ -5,5 +5,7 @@ data class AuthResponse (
     var token : String,
     var username : String,
     var photoUrl : String,
-    var created : String
+    var email : String,
+    var created : Boolean,
+    var active : Boolean
 )

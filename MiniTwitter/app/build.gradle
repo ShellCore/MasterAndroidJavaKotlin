@@ -25,6 +25,13 @@ android {
             buildConfigField "String", "API_MINITWITTER_BASE_URL", project.property('API_MINITWITTER_BASE_URL')
         }
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        offline {}
+        online {}
+    }
 }
 
 dependencies {
