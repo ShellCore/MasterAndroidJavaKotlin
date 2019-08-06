@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.shell.android.minitwitter.R
+import com.shell.android.minitwitter.extensions.saveToSharedPreferences
 import com.shell.android.minitwitter.rest.services.signup.SignupRepository
 import com.shell.android.minitwitter.rest.services.signup.SignupRepositoryImpl
 import com.shell.android.minitwitter.extensions.showMessage
+import com.shell.android.minitwitter.model.Credential
+import com.shell.android.minitwitter.rest.services.auth.response.AuthResponse
+import com.shell.android.minitwitter.rest.services.signup.SignupCallback
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.*
 
-class SignupActivity : AppCompatActivity(), View.OnClickListener, SignupRepositoryImpl.SignupCallback {
+class SignupActivity : AppCompatActivity(), View.OnClickListener, SignupCallback {
 
     companion object {
         const val MIN_LENGTH = 4
@@ -34,11 +38,12 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, SignupReposito
         }
     }
 
-    override fun onSuccess() {
+    override fun onSignupSuccess(response: AuthResponse) {
+        saveCredentials(response)
         gotoDashboardActivity()
     }
 
-    override fun onFailure(message: String) {
+    override fun onSignupError(message: String) {
         signupContainer.showMessage(message)
     }
 
@@ -69,6 +74,18 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, SignupReposito
     private fun gotoLogin() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+    }
+
+    private fun saveCredentials(response : AuthResponse) {
+        val credential = Credential(
+            response.token,
+            response.username,
+            response.email,
+            response.photoUrl,
+            response.created,
+            response.active)
+
+        credential.saveToSharedPreferences()
     }
 
     private fun gotoDashboardActivity() {

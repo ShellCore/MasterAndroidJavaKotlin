@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignupRepositoryImpl(val context: Context, val listener : SignupCallback) : SignupRepository {
+class SignupRepositoryImpl(val context: Context, val callback : SignupCallback) : SignupRepository {
 
     private var service: MiniTwitterService
     private var client: MiniTwitterClient = MiniTwitterClient.getInstance()
@@ -25,21 +25,15 @@ class SignupRepositoryImpl(val context: Context, val listener : SignupCallback) 
         call.enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful) {
-                    listener.onSuccess()
+                    callback.onSignupSuccess(response.body()!!)
                 } else {
-                    listener.onFailure(context.getString(R.string.signup_message_error_noSignup))
+                    callback.onSignupError(context.getString(R.string.signup_message_error_noSignup))
                 }
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                listener.onFailure(context.getString(R.string.login_message_error_noAuth))
+                callback.onSignupError(context.getString(R.string.login_message_error_noAuth))
             }
-
         })
-    }
-
-    interface SignupCallback {
-        fun onSuccess()
-        fun onFailure(message : String)
     }
 }
