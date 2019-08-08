@@ -8,20 +8,30 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.shell.android.minitwitter.R
-import com.shell.android.minitwitter.rest.services.tweet.response.Tweet
+import com.shell.android.minitwitter.extensions.showMessage
+import com.shell.android.minitwitter.rest.services.tweets.GetAllTweetsCallback
+import com.shell.android.minitwitter.rest.services.tweets.TweetsRepository
+import com.shell.android.minitwitter.rest.services.tweets.TweetsRepositoryImpl
+import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
-class TweetsFragment : Fragment() {
+class TweetsFragment : Fragment(), GetAllTweetsCallback {
+
+    private lateinit var repository : TweetsRepository
 
     private lateinit var recTweets : RecyclerView
     private lateinit var recAdapter: MyTweetRecyclerViewAdapter
-    private lateinit var tweets : List<Tweet>
+    private var tweets : List<Tweet> = ArrayList()
 
     private var columnCount = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initRepository()
 
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
@@ -48,9 +58,28 @@ class TweetsFragment : Fragment() {
         return view
     }
 
+    override fun onGetAllTweetsSuccess(tweets: List<Tweet>) {
+        this.tweets = tweets
+        recAdapter.tweets = this.tweets
+        recAdapter.notifyDataSetChanged()
+    }
+
+    override fun onGetAllTweetsError(message: String) {
+        dashboardContainer.showMessage(message, Snackbar.LENGTH_LONG)
+    }
+
+    private fun initRepository() {
+        repository = TweetsRepositoryImpl(activity!!, this)
+    }
+
     private fun loadTweets() {
+        getTweetsFromService()
         recAdapter = MyTweetRecyclerViewAdapter(this.context!!, tweets)
         recTweets.adapter = recAdapter
+    }
+
+    private fun getTweetsFromService() {
+        repository.getAllTweets()
     }
 
     companion object {

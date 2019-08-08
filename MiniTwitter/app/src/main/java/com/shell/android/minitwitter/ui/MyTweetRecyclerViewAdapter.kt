@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.shell.android.minitwitter.R
-import com.shell.android.minitwitter.rest.services.tweet.response.Tweet
+import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
 import kotlinx.android.synthetic.main.fragment_tweets.view.*
 
 

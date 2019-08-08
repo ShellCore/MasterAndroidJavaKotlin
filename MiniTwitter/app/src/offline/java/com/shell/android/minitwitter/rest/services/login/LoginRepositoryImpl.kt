@@ -8,8 +8,8 @@ class LoginRepositoryImpl(private val context : Context, private val callback: L
 
     override fun doLogin(email : String, password : String) {
         when {
-            email != "abc@def.com" -> callback.onLoginError(context.getString(R.string.rest_message_error_failure))
-            password != "123456" -> callback.onLoginError(context.getString(R.string.rest_message_error_failure))
+            email != "abc@abc.com" -> callback.onLoginError(context.getString(R.string.rest_message_error_failure))
+            password != "1234" -> callback.onLoginError(context.getString(R.string.rest_message_error_failure))
             else -> {
                 callback.onLoginSuccess(getDummyResponse())
             }
