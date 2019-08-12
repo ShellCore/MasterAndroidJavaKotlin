@@ -1,7 +1,8 @@
-package com.shell.android.minitwitter.rest.services.tweets
+package com.shell.android.minitwitter.data
 
-import android.content.Context
-import com.shell.android.minitwitter.R
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.shell.android.minitwitter.rest.base.AuthTwitterClient
 import com.shell.android.minitwitter.rest.base.AuthTwitterService
 import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
@@ -9,30 +10,36 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TweetsRepositoryImpl(private val context : Context, private val callback: GetAllTweetsCallback) : TweetsRepository {
+class TweetsRepository() {
 
     private var service : AuthTwitterService
     private var client : AuthTwitterClient = AuthTwitterClient.getInstance()
+    var tweets : LiveData<List<Tweet>>
 
     init {
         service = client.authTwitterService
+        tweets = getAllTweets()
     }
 
-    override fun getAllTweets() {
+    private fun getAllTweets() : LiveData<List<Tweet>> {
+        val data : MutableLiveData<List<Tweet>> = MutableLiveData()
+
         val call = service.getAllTweets()
         call.enqueue(object : Callback<List<Tweet>> {
             override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
                 if (response.isSuccessful) {
-                    callback.onGetAllTweetsSuccess(response.body()!!)
+                    data.value = response.body()!!
                 } else {
-                    callback.onGetAllTweetsError(context.getString(R.string.getAllTweets_message_error_notFound))
+                    Log.e("TweetsRepository", response.message())
                 }
             }
 
             override fun onFailure(call: Call<List<Tweet>>, t: Throwable) {
-                callback.onGetAllTweetsError(context.getString(R.string.rest_message_error_failure))
+                Log.e("TweetsRepository", t.localizedMessage)
             }
 
         })
+
+        return data
     }
 }

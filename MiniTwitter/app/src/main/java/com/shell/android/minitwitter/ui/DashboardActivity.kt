@@ -3,11 +3,7 @@ package com.shell.android.minitwitter.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.shell.android.minitwitter.R
-import com.shell.android.minitwitter.extensions.getCredentialFromSharedPreferences
-import com.shell.android.minitwitter.extensions.showMessage
-import com.shell.android.minitwitter.model.Credential
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
@@ -39,11 +35,12 @@ class DashboardActivity : AppCompatActivity() {
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        val credential : Credential? = getCredentialFromSharedPreferences()
-        dashboardContainer.showMessage("Token : ${credential?.token}", Snackbar.LENGTH_LONG)
-
         supportFragmentManager.beginTransaction()
             .add(R.id.dashboardFragmentContainer, TweetsFragment())
             .commit()
+
+        btnFab.setOnClickListener {
+            NewTweetDialogFragment().show(supportFragmentManager, "")
+        }
     }
 }

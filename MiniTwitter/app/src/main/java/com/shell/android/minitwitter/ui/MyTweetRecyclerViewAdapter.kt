@@ -1,10 +1,10 @@
 package com.shell.android.minitwitter.ui
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shell.android.minitwitter.R
 import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
@@ -28,6 +28,11 @@ class MyTweetRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int = tweets.size
+
+    fun setNewTweets(tweets: List<Tweet>) {
+        this.tweets = tweets
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 

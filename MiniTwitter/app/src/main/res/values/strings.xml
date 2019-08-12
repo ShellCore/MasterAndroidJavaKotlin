@@ -36,6 +36,7 @@
 
     <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
     <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
-    <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde</string>
+    <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde
+    </string>
 
 </resources>

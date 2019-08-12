@@ -5,21 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.shell.android.minitwitter.R
+import com.shell.android.minitwitter.data.TweetsViewModel
 import com.shell.android.minitwitter.extensions.showMessage
 import com.shell.android.minitwitter.rest.services.tweets.GetAllTweetsCallback
-import com.shell.android.minitwitter.rest.services.tweets.TweetsRepository
-import com.shell.android.minitwitter.rest.services.tweets.TweetsRepositoryImpl
 import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class TweetsFragment : Fragment(), GetAllTweetsCallback {
 
-    private lateinit var repository : TweetsRepository
+    private val tweetsViewModel: TweetsViewModel by lazy {
+        ViewModelProviders.of(activity!!)
+            .get(TweetsViewModel::class.java)
+    }
 
     private lateinit var recTweets : RecyclerView
     private lateinit var recAdapter: MyTweetRecyclerViewAdapter
@@ -30,8 +34,6 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        initRepository()
 
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
@@ -58,18 +60,8 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
         return view
     }
 
-    override fun onGetAllTweetsSuccess(tweets: List<Tweet>) {
-        this.tweets = tweets
-        recAdapter.tweets = this.tweets
-        recAdapter.notifyDataSetChanged()
-    }
-
     override fun onGetAllTweetsError(message: String) {
         dashboardContainer.showMessage(message, Snackbar.LENGTH_LONG)
-    }
-
-    private fun initRepository() {
-        repository = TweetsRepositoryImpl(activity!!, this)
     }
 
     private fun loadTweets() {
@@ -79,7 +71,10 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
     }
 
     private fun getTweetsFromService() {
-        repository.getAllTweets()
+        tweetsViewModel.tweets.observe(activity!!, Observer { newTweets ->
+            this.tweets = newTweets
+            recAdapter.setNewTweets(this.tweets)
+        })
     }
 
     companion object {
