@@ -5,4 +5,12 @@ data class Tweet (
     var mensaje : String,
     var likes : List<User>,
     var user : User
-)
+) {
+
+    constructor(tweet: Tweet) : this(
+        tweet.id,
+        tweet.mensaje,
+        tweet.likes,
+        tweet.user
+    )
+}

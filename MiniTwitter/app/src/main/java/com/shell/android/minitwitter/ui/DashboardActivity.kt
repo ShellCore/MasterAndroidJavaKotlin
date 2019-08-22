@@ -2,8 +2,11 @@ package com.shell.android.minitwitter.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.shell.android.minitwitter.BuildConfig
 import com.shell.android.minitwitter.R
+import com.shell.android.minitwitter.extensions.getCredentialFromSharedPreferences
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
@@ -36,9 +39,22 @@ class DashboardActivity : AppCompatActivity() {
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.dashboardFragmentContainer, TweetsFragment())
+            .replace(R.id.dashboardFragmentContainer, TweetsFragment())
             .commit()
 
+        loadUserImage()
+        setOnClickListeners()
+    }
+
+    private fun loadUserImage() {
+        with(getCredentialFromSharedPreferences()?.photoUrl) {
+            Glide.with(applicationContext)
+                .load("${BuildConfig.API_MINITWITTER_FILES_URL}${this}")
+                .into(imgUserPhoto)
+        }
+    }
+
+    private fun setOnClickListeners() {
         btnFab.setOnClickListener {
             NewTweetDialogFragment().show(supportFragmentManager, "")
         }

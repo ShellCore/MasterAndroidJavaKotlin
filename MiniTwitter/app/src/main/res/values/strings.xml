@@ -18,6 +18,14 @@
     <!--Dashboard-->
     <string name="title_activity_dashboard">Inicio</string>
 
+    <!--New Tweet-->
+    <string name="newTweet_message_error_noMessage">Debe de escribir un texto en el mensaje para poder guardar</string>
+    <string name="newTweet_cancel_title">Cancelar Tweet</string>
+    <string name="newTweet_cancel_message">¿Desea realmente cancelar el nuevo tweet? El mensaje se borrará</string>
+    <string name="newTweet_cancel_btn_cancel">Cancelar</string>
+    <string name="newTweet_cancel_btn_accept">Eliminar</string>
+
+
     <!--Validations-->
     <string name="edt_error_required">Este campo es requerido</string>
     <string name="edt_error_min_length">Debe de tener al menos %d caracteres</string>
@@ -36,7 +44,7 @@
 
     <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
     <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
-    <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde
-    </string>
+    <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde</string>
+
 
 </resources>
