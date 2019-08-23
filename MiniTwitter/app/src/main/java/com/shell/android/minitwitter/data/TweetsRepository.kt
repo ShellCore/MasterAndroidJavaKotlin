@@ -21,7 +21,7 @@ class TweetsRepository {
         tweets = getAllTweets()
     }
 
-    private fun getAllTweets() : MutableLiveData<List<Tweet>> {
+    fun getAllTweets() : MutableLiveData<List<Tweet>> {
 
         val call = service.getAllTweets()
         call.enqueue(object : Callback<List<Tweet>> {
@@ -42,7 +42,7 @@ class TweetsRepository {
         return tweets
     }
 
-    public fun createTweet(mensaje : String) {
+    fun createTweet(mensaje : String) {
         val request = NewTweetRequest(mensaje)
         val call = service.postNewTweet(request)
         call.enqueue(object : Callback<Tweet> {

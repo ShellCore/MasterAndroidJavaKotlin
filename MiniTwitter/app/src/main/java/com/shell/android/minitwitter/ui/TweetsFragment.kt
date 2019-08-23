@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.shell.android.minitwitter.R
 import com.shell.android.minitwitter.data.TweetsViewModel
@@ -20,17 +21,22 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class TweetsFragment : Fragment(), GetAllTweetsCallback {
 
+    companion object {
+        const val ARG_COLUMN_COUNT = "column-count"
+    }
+
     private val tweetsViewModel: TweetsViewModel by lazy {
         ViewModelProviders.of(activity!!)
             .get(TweetsViewModel::class.java)
     }
 
-    private lateinit var recTweets : RecyclerView
+    // Components
+    private lateinit var recTweets: RecyclerView
+    private lateinit var srlTweets: SwipeRefreshLayout
+
     private lateinit var recAdapter: MyTweetRecyclerViewAdapter
-    private var tweets : List<Tweet> = ArrayList()
-
+    private var tweets: List<Tweet> = ArrayList()
     private var columnCount = 1
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,23 +51,38 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tweet_list, container, false)
-
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                recTweets = view
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                loadTweets()
-            }
-        }
+        getComponents(view)
+        setListAdapter()
+        setSwipeGesture()
         return view
+    }
+
+    private fun getComponents(view: View) {
+        recTweets = view.findViewById(R.id.recTweets)
+        srlTweets = view.findViewById(R.id.srlTweets)
+        srlTweets.setColorSchemeColors(resources.getColor(R.color.colorAccent))
     }
 
     override fun onGetAllTweetsError(message: String) {
         dashboardContainer.showMessage(message, Snackbar.LENGTH_LONG)
+    }
+
+    private fun setListAdapter() {
+
+        recTweets.apply {
+            layoutManager = when {
+                columnCount <= 1 -> LinearLayoutManager(activity)
+                else -> GridLayoutManager(activity, columnCount)
+            }
+        }
+        loadTweets()
+    }
+
+    private fun setSwipeGesture() {
+        srlTweets.setOnRefreshListener {
+            srlTweets.isRefreshing = true
+            loadNewData()
+        }
     }
 
     private fun loadTweets() {
@@ -77,7 +98,14 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
         })
     }
 
-    companion object {
-        const val ARG_COLUMN_COUNT = "column-count"
+    private fun loadNewData() {
+        tweetsViewModel.getNewTweets().observe(activity!!, object: Observer<List<Tweet>> {
+            override fun onChanged(newTweets: List<Tweet>) {
+                tweets = newTweets
+                srlTweets.isRefreshing = false
+                recAdapter.setNewTweets(tweets)
+                tweetsViewModel.getNewTweets().removeObserver(this)
+            }
+        })
     }
 }

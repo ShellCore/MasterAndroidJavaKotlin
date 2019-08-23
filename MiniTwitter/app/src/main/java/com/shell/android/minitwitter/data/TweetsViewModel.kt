@@ -15,7 +15,12 @@ class TweetsViewModel(application: Application) : AndroidViewModel(application) 
         tweets = repository.tweets
     }
 
-    public fun addNewTweet(message: String) {
+    fun getNewTweets(): LiveData<List<Tweet>> {
+        tweets = repository.getAllTweets()
+        return tweets
+    }
+
+    fun addNewTweet(message: String) {
         repository.createTweet(message)
     }
 }
