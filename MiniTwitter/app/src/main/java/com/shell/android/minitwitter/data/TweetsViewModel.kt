@@ -23,4 +23,8 @@ class TweetsViewModel(application: Application) : AndroidViewModel(application) 
     fun addNewTweet(message: String) {
         repository.createTweet(message)
     }
+
+    fun likeTweet(idTweet: Int) {
+        repository.likeTweet(idTweet)
+    }
 }
