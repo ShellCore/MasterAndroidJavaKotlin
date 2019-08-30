@@ -10,14 +10,21 @@ class TweetsViewModel(application: Application) : AndroidViewModel(application) 
     private val repository: TweetsRepository = TweetsRepository()
 
     var tweets: LiveData<List<Tweet>>
+    var favTweets: LiveData<List<Tweet>>
 
     init {
         tweets = repository.tweets
+        favTweets = repository.favTweets
     }
 
     fun getNewTweets(): LiveData<List<Tweet>> {
         tweets = repository.getAllTweets()
         return tweets
+    }
+
+    fun getNewFavTweets(): LiveData<List<Tweet>> {
+        getNewTweets()
+        return favTweets
     }
 
     fun addNewTweet(message: String) {

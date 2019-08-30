@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/login_hint_email"
             android:inputType="textEmailAddress"
+            android:text="@string/login_default_user"
             android:textColor="@android:color/white"
             android:textColorHighlight="@color/colorPrimaryDark"
             android:textColorHint="@color/colorPrimaryDark" />
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/login_hint_password"
             android:inputType="textPassword"
+            android:text="@string/login_default_pass"
             android:textColor="@android:color/white"
             android:textColorHighlight="@color/colorPrimaryDark"
             android:textColorHint="@color/colorPrimaryDark" />

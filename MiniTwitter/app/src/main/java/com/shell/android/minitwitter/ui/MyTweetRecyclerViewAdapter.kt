@@ -32,6 +32,7 @@ class MyTweetRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tweet = tweets[position]
         holder.bind(tweet)
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int = tweets.size
@@ -65,8 +66,9 @@ class MyTweetRecyclerViewAdapter(
             val actualUser = getCredentialFromSharedPreferences()
             if (tweet.likes.isNotEmpty()) {
                 for (user in tweet.likes) {
-                    if (user.username == actualUser!!.userName) {
+                    if (actualUser!!.userName == user.username) {
                         setLikeByMyself()
+                        break
                     } else {
                         setNotLikedByMe()
                     }
@@ -91,15 +93,11 @@ class MyTweetRecyclerViewAdapter(
         }
 
         private fun setLikeByMyself() {
-            Glide.with(context)
-                .load(R.drawable.ic_heart_me)
-                .into(view.btnLike)
+            view.btnLike.setImageResource(R.drawable.ic_heart_me)
         }
 
         private fun setNotLikedByMe() {
-            Glide.with(context)
-                .load(R.drawable.ic_heart_empty)
-                .into(view.btnLike)
+            view.btnLike.setImageResource(R.drawable.ic_heart_empty)
         }
     }
 }

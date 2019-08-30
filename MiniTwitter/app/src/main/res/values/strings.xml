@@ -7,6 +7,8 @@
     <string name="login_btn_login">Ingresar</string>
     <string name="login_btn_signup">@string/common_signup</string>
     <string name="login_description_logo">Logo</string>
+    <string name="login_default_user">info@minitwitter.com</string>
+    <string name="login_default_pass">1234</string>
 
     <!--Signup-->
     <string name="signup_hint_username">@string/common_username</string>

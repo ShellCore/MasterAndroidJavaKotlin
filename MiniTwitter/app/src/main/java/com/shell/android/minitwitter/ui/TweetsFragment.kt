@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -22,7 +21,18 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 class TweetsFragment : Fragment(), GetAllTweetsCallback {
 
     companion object {
-        const val ARG_COLUMN_COUNT = "column-count"
+        const val TWEET_LIST_TYPE = "tweet_list_type"
+        const val TWEET_LIST_ALL = 1
+        const val TWEET_LIST_FAVS = 2
+
+        fun newInstance(tweetListType: Int): TweetsFragment {
+            val args = Bundle()
+            args.putInt(TWEET_LIST_TYPE, tweetListType)
+
+            val fragment = TweetsFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     private val tweetsViewModel: TweetsViewModel by lazy {
@@ -36,13 +46,13 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
 
     private lateinit var recAdapter: MyTweetRecyclerViewAdapter
     private var tweets: List<Tweet> = ArrayList()
-    private var columnCount = 1
+    private var tweetListType = TWEET_LIST_ALL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
+            tweetListType = it.getInt(TWEET_LIST_TYPE)
         }
     }
 
@@ -68,31 +78,39 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
     }
 
     private fun setListAdapter() {
-
-        recTweets.apply {
-            layoutManager = when {
-                columnCount <= 1 -> LinearLayoutManager(activity)
-                else -> GridLayoutManager(activity, columnCount)
-            }
-        }
+        recTweets.layoutManager = LinearLayoutManager(activity)
         loadTweets()
     }
 
     private fun setSwipeGesture() {
         srlTweets.setOnRefreshListener {
             srlTweets.isRefreshing = true
-            loadNewData()
+            when(tweetListType) {
+                TWEET_LIST_ALL -> loadNewData()
+                TWEET_LIST_FAVS -> loadNewFavData()
+            }
         }
     }
 
     private fun loadTweets() {
-        getTweetsFromService()
         recAdapter = MyTweetRecyclerViewAdapter(this.context!!, tweets)
         recTweets.adapter = recAdapter
+
+        when(tweetListType) {
+            TWEET_LIST_ALL -> getTweetsFromViewModel()
+            TWEET_LIST_FAVS -> getFavTweetsFromViewModel()
+        }
     }
 
-    private fun getTweetsFromService() {
+    private fun getTweetsFromViewModel() {
         tweetsViewModel.tweets.observe(activity!!, Observer { newTweets ->
+            this.tweets = newTweets
+            recAdapter.setNewTweets(this.tweets)
+        })
+    }
+
+    private fun getFavTweetsFromViewModel() {
+        tweetsViewModel.favTweets.observe(activity!!, Observer { newTweets ->
             this.tweets = newTweets
             recAdapter.setNewTweets(this.tweets)
         })
@@ -105,6 +123,17 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
                 srlTweets.isRefreshing = false
                 recAdapter.setNewTweets(tweets)
                 tweetsViewModel.getNewTweets().removeObserver(this)
+            }
+        })
+    }
+
+    private fun loadNewFavData() {
+        tweetsViewModel.getNewFavTweets().observe(activity!!, object: Observer<List<Tweet>> {
+            override fun onChanged(newTweets: List<Tweet>) {
+                tweets = newTweets
+                srlTweets.isRefreshing = false
+                recAdapter.setNewTweets(tweets)
+                tweetsViewModel.getNewFavTweets().removeObserver(this)
             }
         })
     }
