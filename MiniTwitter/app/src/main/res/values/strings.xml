@@ -30,6 +30,8 @@
     <!--Profile-->
     <string name="profile_hint_username">@string/common_username</string>
     <string name="profile_hint_email">@string/common_email</string>
+    <string name="profile_hint_website">Website</string>
+    <string name="profile_hint_description">Descripción e intereses</string>
     <string name="profile_hint_password">@string/common_password</string>
     <string name="profile_btn_save">Guardar</string>
     <string name="profile_btn_modifyPassword">Modificar Contraseña</string>
