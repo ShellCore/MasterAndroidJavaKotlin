@@ -1,12 +1,11 @@
-package com.shell.android.minitwitter.ui
+package com.shell.android.minitwitter.ui.tweets
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
 import com.shell.android.minitwitter.R
 import com.shell.android.minitwitter.data.TweetsViewModel
 import kotlinx.android.synthetic.main.bottom_modal_tweet_fragment.*

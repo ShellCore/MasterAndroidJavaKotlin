@@ -1,4 +1,4 @@
-package com.shell.android.minitwitter.ui
+package com.shell.android.minitwitter.ui.tweets
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,7 +46,8 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
 
     private lateinit var recAdapter: MyTweetRecyclerViewAdapter
     private var tweets: List<Tweet> = ArrayList()
-    private var tweetListType = TWEET_LIST_ALL
+    private var tweetListType =
+        TWEET_LIST_ALL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +94,10 @@ class TweetsFragment : Fragment(), GetAllTweetsCallback {
     }
 
     private fun loadTweets() {
-        recAdapter = MyTweetRecyclerViewAdapter(this.context!!, tweets)
+        recAdapter = MyTweetRecyclerViewAdapter(
+            this.context!!,
+            tweets
+        )
         recTweets.adapter = recAdapter
 
         when(tweetListType) {

@@ -1,4 +1,4 @@
-package com.shell.android.minitwitter.ui
+package com.shell.android.minitwitter.ui.tweets
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -78,6 +78,7 @@ class NewTweetDialogFragment : DialogFragment(), View.OnClickListener {
             val viewModel = ViewModelProviders.of(activity!!)
                 .get(TweetsViewModel::class.java)
             viewModel.addNewTweet(message.toString())
+            closeNewTweetDialog()
         } else {
             Toast.makeText(context, R.string.newTweet_message_error_noMessage, Toast.LENGTH_LONG)
                 .show()

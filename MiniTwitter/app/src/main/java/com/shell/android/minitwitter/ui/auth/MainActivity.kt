@@ -1,4 +1,4 @@
-package com.shell.android.minitwitter.ui
+package com.shell.android.minitwitter.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.shell.android.minitwitter.R
 import com.shell.android.minitwitter.extensions.saveToSharedPreferences
+import com.shell.android.minitwitter.extensions.showMessage
 import com.shell.android.minitwitter.model.Credential
 import com.shell.android.minitwitter.rest.services.auth.response.AuthResponse
 import com.shell.android.minitwitter.rest.services.login.LoginCallback
 import com.shell.android.minitwitter.rest.services.login.LoginRepository
 import com.shell.android.minitwitter.rest.services.login.LoginRepositoryImpl
-import com.shell.android.minitwitter.extensions.showMessage
+import com.shell.android.minitwitter.ui.DashboardActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, LoginCallback {

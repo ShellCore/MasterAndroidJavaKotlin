@@ -5,7 +5,7 @@
     android:id="@+id/srlTweets"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.TweetsFragment">
+    tools:context=".ui.tweets.TweetsFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

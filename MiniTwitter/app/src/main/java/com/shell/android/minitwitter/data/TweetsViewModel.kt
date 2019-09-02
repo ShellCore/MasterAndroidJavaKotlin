@@ -1,13 +1,12 @@
 package com.shell.android.minitwitter.data
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
-import com.shell.android.minitwitter.ui.BottomModalTweetFragment
+import com.shell.android.minitwitter.ui.tweets.BottomModalTweetFragment
 
 class TweetsViewModel(application: Application) : AndroidViewModel(application) {
 

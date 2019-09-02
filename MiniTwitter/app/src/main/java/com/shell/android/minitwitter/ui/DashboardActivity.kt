@@ -8,6 +8,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.shell.android.minitwitter.BuildConfig
 import com.shell.android.minitwitter.R
 import com.shell.android.minitwitter.extensions.getCredentialFromSharedPreferences
+import com.shell.android.minitwitter.ui.profile.ProfileFragment
+import com.shell.android.minitwitter.ui.tweets.NewTweetDialogFragment
+import com.shell.android.minitwitter.ui.tweets.TweetsFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
@@ -15,16 +18,21 @@ class DashboardActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_all -> {
-                setFragmentList(TweetsFragment.newInstance(TweetsFragment.TWEET_LIST_ALL))
+                setFragmentList(
+                    TweetsFragment.newInstance(
+                        TweetsFragment.TWEET_LIST_ALL))
                 btnFab.show()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_favs -> {
-                setFragmentList(TweetsFragment.newInstance(TweetsFragment.TWEET_LIST_FAVS))
+                setFragmentList(
+                    TweetsFragment.newInstance(
+                        TweetsFragment.TWEET_LIST_FAVS))
                 btnFab.hide()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_profile -> {
+                setFragmentList(ProfileFragment())
                 btnFab.hide()
                 return@OnNavigationItemSelectedListener true
             }
@@ -63,7 +71,8 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setOnClickListeners() {
         btnFab.setOnClickListener {
-            NewTweetDialogFragment().show(supportFragmentManager, "")
+            NewTweetDialogFragment()
+                .show(supportFragmentManager, "")
         }
     }
 }

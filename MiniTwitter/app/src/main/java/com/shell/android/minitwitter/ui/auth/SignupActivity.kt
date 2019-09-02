@@ -1,17 +1,18 @@
-package com.shell.android.minitwitter.ui
+package com.shell.android.minitwitter.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.shell.android.minitwitter.R
 import com.shell.android.minitwitter.extensions.saveToSharedPreferences
-import com.shell.android.minitwitter.rest.services.signup.SignupRepository
-import com.shell.android.minitwitter.rest.services.signup.SignupRepositoryImpl
 import com.shell.android.minitwitter.extensions.showMessage
 import com.shell.android.minitwitter.model.Credential
 import com.shell.android.minitwitter.rest.services.auth.response.AuthResponse
 import com.shell.android.minitwitter.rest.services.signup.SignupCallback
+import com.shell.android.minitwitter.rest.services.signup.SignupRepository
+import com.shell.android.minitwitter.rest.services.signup.SignupRepositoryImpl
+import com.shell.android.minitwitter.ui.DashboardActivity
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.*
 
@@ -66,7 +67,9 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener, SignupCallback
             username.isEmpty() -> edtUsername.error = getString(R.string.edt_error_required)
             email.isEmpty() -> edtEmail.error = getString(R.string.edt_error_required)
             password.isEmpty() -> edtPassword.error = getString(R.string.edt_error_required)
-            password.length < MIN_LENGTH -> edtPassword.error = String.format(Locale.getDefault(), getString(R.string.edt_error_min_length), MIN_LENGTH)
+            password.length < MIN_LENGTH -> edtPassword.error = String.format(Locale.getDefault(), getString(R.string.edt_error_min_length),
+                MIN_LENGTH
+            )
             else -> repository.doSingup(username,  email, password)
         }
     }

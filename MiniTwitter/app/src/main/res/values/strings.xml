@@ -27,6 +27,13 @@
     <string name="newTweet_cancel_btn_cancel">Cancelar</string>
     <string name="newTweet_cancel_btn_accept">Eliminar</string>
 
+    <!--Profile-->
+    <string name="profile_hint_username">@string/common_username</string>
+    <string name="profile_hint_email">@string/common_email</string>
+    <string name="profile_hint_password">@string/common_password</string>
+    <string name="profile_btn_save">Guardar</string>
+    <string name="profile_btn_modifyPassword">Modificar Contraseña</string>
+
     <!--Menu-->
     <string name="menu_delete_tweet">Eliminar tweet</string>
 
