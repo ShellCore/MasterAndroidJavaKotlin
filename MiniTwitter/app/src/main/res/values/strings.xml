@@ -27,6 +27,8 @@
     <string name="newTweet_cancel_btn_cancel">Cancelar</string>
     <string name="newTweet_cancel_btn_accept">Eliminar</string>
 
+    <!--Menu-->
+    <string name="menu_delete_tweet">Eliminar tweet</string>
 
     <!--Validations-->
     <string name="edt_error_required">Este campo es requerido</string>
@@ -47,6 +49,4 @@
     <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
     <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
     <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde</string>
-
-
 </resources>

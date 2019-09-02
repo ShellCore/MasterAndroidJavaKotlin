@@ -1,9 +1,13 @@
 package com.shell.android.minitwitter.data
 
+import android.app.Activity
 import android.app.Application
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
+import com.shell.android.minitwitter.ui.BottomModalTweetFragment
 
 class TweetsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -15,6 +19,11 @@ class TweetsViewModel(application: Application) : AndroidViewModel(application) 
     init {
         tweets = repository.tweets
         favTweets = repository.favTweets
+    }
+
+    fun openDialogMenu(context: Context, idTweet: Int) {
+        val dialog = BottomModalTweetFragment.newInstance(idTweet)
+        dialog.show((context as AppCompatActivity).supportFragmentManager, "BottomModalTweetFragment")
     }
 
     fun getNewTweets(): LiveData<List<Tweet>> {
@@ -29,6 +38,10 @@ class TweetsViewModel(application: Application) : AndroidViewModel(application) 
 
     fun addNewTweet(message: String) {
         repository.createTweet(message)
+    }
+
+    fun deleteTweet(idTweet: Int) {
+        repository.deleteTweet(idTweet)
     }
 
     fun likeTweet(idTweet: Int) {

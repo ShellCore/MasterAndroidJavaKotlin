@@ -6,6 +6,7 @@ import com.shell.android.minitwitter.extensions.getCredentialFromSharedPreferenc
 import com.shell.android.minitwitter.rest.base.AuthTwitterClient
 import com.shell.android.minitwitter.rest.base.AuthTwitterService
 import com.shell.android.minitwitter.rest.services.createtweet.request.NewTweetRequest
+import com.shell.android.minitwitter.rest.services.delete.response.DeleteTweetResponse
 import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,7 +71,7 @@ class TweetsRepository {
         call.enqueue(object : Callback<Tweet> {
             override fun onResponse(call: Call<Tweet>, response: Response<Tweet>) {
                 if (response.isSuccessful) {
-                    var listaClonada: ArrayList<Tweet> = ArrayList()
+                    val listaClonada: ArrayList<Tweet> = ArrayList()
                     listaClonada.add(response.body()!!)
                     tweets.value!!.iterator().forEach {
                         listaClonada.add(Tweet(it))
@@ -86,6 +87,34 @@ class TweetsRepository {
             }
 
         })
+    }
+
+    fun deleteTweet(idTweet: Int) {
+        service.deleteTweet(idTweet)
+            .enqueue(object : Callback<DeleteTweetResponse> {
+                override fun onResponse(
+                    call: Call<DeleteTweetResponse>,
+                    response: Response<DeleteTweetResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val listaClonada = ArrayList<Tweet>()
+                        tweets.value!!.forEach { tweet ->
+                            if (tweet.id != idTweet) {
+                                listaClonada.add(tweet)
+                            }
+                        }
+                        tweets.value = listaClonada
+                        getAllFavTweets()
+                    } else {
+                        Log.e("TweetsRepository", response.message())
+                    }
+                }
+
+                override fun onFailure(call: Call<DeleteTweetResponse>, t: Throwable) {
+                    Log.e("TweetsRepository", t.localizedMessage)
+                }
+
+            })
     }
 
     fun likeTweet(idTweet: Int) {

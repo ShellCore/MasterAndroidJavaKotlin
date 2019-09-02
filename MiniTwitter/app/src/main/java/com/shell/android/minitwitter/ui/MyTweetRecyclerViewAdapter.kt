@@ -52,6 +52,7 @@ class MyTweetRecyclerViewAdapter(
                 setUserData(this)
                 setUserPhoto(this)
                 validateIfLikedByActualUser(this)
+                validateShowMenuButton(tweet)
                 setOnClickListeners(this)
             }
         }
@@ -59,6 +60,19 @@ class MyTweetRecyclerViewAdapter(
         private fun setOnClickListeners(tweet: Tweet) {
             view.btnLike.setOnClickListener {
                 viewModel.likeTweet(tweet.id)
+            }
+
+            view.btnShowMenu.setOnClickListener {
+                viewModel.openDialogMenu(context, tweet.id)
+            }
+        }
+
+        private fun validateShowMenuButton(tweet: Tweet) {
+            val actualUser = getCredentialFromSharedPreferences()
+            if (tweet.user.username == actualUser!!.userName) {
+                view.btnShowMenu.visibility = View.VISIBLE
+            } else {
+                view.btnShowMenu.visibility = View.GONE
             }
         }
 
