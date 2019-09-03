@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">Mini Twitter</string>
+
+    <!--Login-->
+    <string name="login_hint_email">@string/common_email</string>
+    <string name="login_hint_password">@string/common_password</string>
+    <string name="login_btn_login">Ingresar</string>
+    <string name="login_btn_signup">@string/common_signup</string>
+    <string name="login_description_logo">Logo</string>
+    <string name="login_default_user">info@minitwitter.com</string>
+    <string name="login_default_pass">1234</string>
+
+    <!--Signup-->
+    <string name="signup_hint_username">@string/common_username</string>
+    <string name="signup_hint_email">@string/common_email</string>
+    <string name="signup_hint_password">@string/common_password</string>
+    <string name="signup_btn_signup">@string/common_signup</string>
+    <string name="signup_btn_login">Si ya dispone de una cuenta, inicie sesión aquí</string>
+
+    <!--Dashboard-->
+    <string name="title_activity_dashboard">Inicio</string>
+
+    <!--New Tweet-->
+    <string name="newTweet_message_error_noMessage">Debe de escribir un texto en el mensaje para poder guardar</string>
+    <string name="newTweet_cancel_title">Cancelar Tweet</string>
+    <string name="newTweet_cancel_message">¿Desea realmente cancelar el nuevo tweet? El mensaje se borrará</string>
+    <string name="newTweet_cancel_btn_cancel">Cancelar</string>
+    <string name="newTweet_cancel_btn_accept">Eliminar</string>
+
+    <!--Profile-->
+    <string name="profile_hint_username">@string/common_username</string>
+    <string name="profile_hint_email">@string/common_email</string>
+    <string name="profile_hint_website">Website</string>
+    <string name="profile_hint_description">Descripción e intereses</string>
+    <string name="profile_hint_password">@string/common_password</string>
+    <string name="profile_btn_save">Guardar</string>
+    <string name="profile_btn_modifyPassword">Modificar Contraseña</string>
+    <string name="profile_message_error_userRequired">El nombre de usuario es requerido</string>
+    <string name="profile_message_error_emailRequired">El correo electrónico es requerido</string>
+    <string name="profile_message_error_passwordRequired">La contraseña es requerida</string>
+
+    <!--Menu-->
+    <string name="menu_delete_tweet">Eliminar tweet</string>
+
+    <!--Validations-->
+    <string name="edt_error_required">Este campo es requerido</string>
+    <string name="edt_error_min_length">Debe de tener al menos %d caracteres</string>
+
+    <!--Services-->
+    <string name="login_message_ok">Sesión iniciada correctamente</string>
+    <string name="login_message_error_noAuth">Hubo un error de autenticación. Revise sus credenciales</string>
+
+    <string name="signup_message_ok">Usuario creado correctamente</string>
+    <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
+
+    <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde</string>
+
+    <string name="updateProfile_message_sendingData">Enviando información al servidor</string>
+
+    <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
+
+    <!--Permisos-->
+    <string name="permissions_message_title">Permisos</string>
+    <string name="permissions_message_message">Se requieren los permisos para la selección de imagen</string>
+    <string name="permissions_btn_accept">Aceptar</string>
+
+    <!--Commons-->
+    <string name="common_username">Usuario</string>
+    <string name="common_email">Correo electrónico</string>
+    <string name="common_password">Contraseña</string>
+    <string name="common_signup">Registrarse</string>
+</resources>
