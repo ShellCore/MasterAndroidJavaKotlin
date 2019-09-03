@@ -46,12 +46,6 @@
     <string name="edt_error_required">Este campo es requerido</string>
     <string name="edt_error_min_length">Debe de tener al menos %d caracteres</string>
 
-    <!--Commons-->
-    <string name="common_username">Usuario</string>
-    <string name="common_email">Correo electrónico</string>
-    <string name="common_password">Contraseña</string>
-    <string name="common_signup">Registrarse</string>
-
     <!--Services-->
     <string name="login_message_ok">Sesión iniciada correctamente</string>
     <string name="login_message_error_noAuth">Hubo un error de autenticación. Revise sus credenciales</string>
@@ -64,4 +58,15 @@
     <string name="updateProfile_message_sendingData">Enviando información al servidor</string>
 
     <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
+
+    <!--Permisos-->
+    <string name="permissions_message_title">Permisos</string>
+    <string name="permissions_message_message">Se requieren los permisos para la selección de imagen</string>
+    <string name="permissions_btn_accept">Aceptar</string>
+
+    <!--Commons-->
+    <string name="common_username">Usuario</string>
+    <string name="common_email">Correo electrónico</string>
+    <string name="common_password">Contraseña</string>
+    <string name="common_signup">Registrarse</string>
 </resources>

@@ -10,12 +10,18 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     val profileRepository : ProfileRepository = ProfileRepository()
     var userProfile : LiveData<UserProfileResponse>
+    var photoProfile : LiveData<String>
 
     init {
         userProfile = profileRepository.userProfile
+        photoProfile = profileRepository.photoProfile
     }
 
-    public fun updateProfile(request: UserProfileRequest) {
+    fun updateProfile(request: UserProfileRequest) {
         profileRepository.updateProfile(request)
+    }
+
+    fun uploadPhoto(photoPath: String) {
+        profileRepository.uploadPhoto(photoPath)
     }
 }

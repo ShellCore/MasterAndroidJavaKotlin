@@ -5,6 +5,8 @@ import com.shell.android.minitwitter.rest.services.createtweet.request.NewTweetR
 import com.shell.android.minitwitter.rest.services.delete.response.DeleteTweetResponse
 import com.shell.android.minitwitter.rest.services.profile.response.UserProfileResponse
 import com.shell.android.minitwitter.rest.services.tweets.response.Tweet
+import com.shell.android.minitwitter.rest.services.uploadphoto.response.UploadProfilePhotoResponse
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -29,4 +31,8 @@ interface AuthTwitterService {
 
     @PUT("users/profile")
     fun updateUserProfile(@Body request : UserProfileRequest) : Call<UserProfileResponse>
+
+    @Multipart
+    @POST("users/uploadprofilephoto")
+    fun uploadProfilePhoto(@Part("file\"; filename=\"photo.jpeg\" ") file: RequestBody) : Call<UploadProfilePhotoResponse>
 }

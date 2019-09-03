@@ -1,5 +1,6 @@
 package com.shell.android.minitwitter.ui.profile
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.listener.single.CompositePermissionListener
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
+import com.karumi.dexter.listener.single.PermissionListener
 import com.shell.android.minitwitter.BuildConfig
 import com.shell.android.minitwitter.R
 import com.shell.android.minitwitter.data.ProfileViewModel
@@ -19,16 +25,13 @@ import kotlinx.android.synthetic.main.profile_fragment.*
 
 class ProfileFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
     private lateinit var viewModel: ProfileViewModel
     private var loadingData = true
+    private lateinit var allPermissionListener : PermissionListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity!!).get(ProfileViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -49,6 +52,10 @@ class ProfileFragment : Fragment() {
                     .show()
             }
         })
+
+        viewModel.photoProfile.observe(activity!!, Observer {
+            showAvatarImage(it)
+        })
     }
 
     private fun setUserData(userProfile: UserProfileResponse) {
@@ -61,10 +68,18 @@ class ProfileFragment : Fragment() {
 
     private fun setUserImage(userProfile: UserProfileResponse) {
         with(userProfile.photoUrl) {
-            Glide.with(activity!!)
-                .load("${BuildConfig.API_MINITWITTER_FILES_URL}${this}")
-                .into(imgAvatar)
+            showAvatarImage(this)
         }
+    }
+
+    private fun showAvatarImage(path: String) {
+        Glide.with(activity!!)
+            .load("${BuildConfig.API_MINITWITTER_FILES_URL}${path}")
+            .dontAnimate()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .centerCrop()
+            .into(imgAvatar)
     }
 
     private fun setOnClickListeners() {
@@ -96,6 +111,29 @@ class ProfileFragment : Fragment() {
         btnModifyPassword.setOnClickListener {
 
         }
+
+        imgAvatar.setOnClickListener {
+            checkPermissions()
+        }
     }
 
+    private fun checkPermissions() {
+        val dialog : PermissionListener =
+            DialogOnDeniedPermissionListener.Builder
+            .withContext(activity!!)
+            .withTitle(getString(R.string.permissions_message_title))
+                .withMessage(getString(R.string.permissions_message_message))
+                .withButtonText(getString(R.string.permissions_btn_accept))
+                .withIcon(R.mipmap.ic_launcher)
+                .build()
+        allPermissionListener = CompositePermissionListener(
+            activity!! as PermissionListener,
+            dialog
+        )
+
+        Dexter.withActivity(activity!!)
+            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            .withListener(allPermissionListener)
+            .check()
+    }
 }
