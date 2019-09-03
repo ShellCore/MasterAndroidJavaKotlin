@@ -35,6 +35,9 @@
     <string name="profile_hint_password">@string/common_password</string>
     <string name="profile_btn_save">Guardar</string>
     <string name="profile_btn_modifyPassword">Modificar Contraseña</string>
+    <string name="profile_message_error_userRequired">El nombre de usuario es requerido</string>
+    <string name="profile_message_error_emailRequired">El correo electrónico es requerido</string>
+    <string name="profile_message_error_passwordRequired">La contraseña es requerida</string>
 
     <!--Menu-->
     <string name="menu_delete_tweet">Eliminar tweet</string>
@@ -54,8 +57,11 @@
     <string name="login_message_error_noAuth">Hubo un error de autenticación. Revise sus credenciales</string>
 
     <string name="signup_message_ok">Usuario creado correctamente</string>
+    <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
+
+    <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde</string>
+
+    <string name="updateProfile_message_sendingData">Enviando información al servidor</string>
 
     <string name="rest_message_error_failure">Problemas de conexión. Inténtelo nuevamente</string>
-    <string name="signup_message_error_noSignup">Hubo un error en el registro. Revise los datos anotados</string>
-    <string name="getAllTweets_message_error_notFound">No se pudo recuperar la lista de tweets. Inténtelo más tarde</string>
 </resources>

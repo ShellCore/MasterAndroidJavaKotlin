@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.shell.android.minitwitter.extensions.getCredentialFromSharedPreferences
 import com.shell.android.minitwitter.rest.base.AuthTwitterClient
 import com.shell.android.minitwitter.rest.base.AuthTwitterService
+import com.shell.android.minitwitter.rest.services.createprofile.request.UserProfileRequest
 import com.shell.android.minitwitter.rest.services.profile.response.UserProfileResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,22 +28,39 @@ class ProfileRepository {
 
     private fun getProfile(): MutableLiveData<UserProfileResponse> {
         service.getUserProfile()
-            .enqueue(object: Callback<UserProfileResponse> {
-                override fun onResponse(
-                    call: Call<UserProfileResponse>,
-                    response: Response<UserProfileResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        userProfile.value = response.body()
-                    } else {
-                        Log.e("ProfileRepository", response.message())
+                .enqueue(object : Callback<UserProfileResponse> {
+                    override fun onResponse(
+                            call: Call<UserProfileResponse>,
+                            response: Response<UserProfileResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            userProfile.value = response.body()
+                        } else {
+                            Log.e("ProfileRepository", response.message())
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
-                    Log.e("ProfileRepository", t.localizedMessage)
-                }
-            })
+                    override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                        Log.e("ProfileRepository", t.localizedMessage)
+                    }
+                })
         return userProfile
+    }
+
+    fun updateProfile(request: UserProfileRequest) {
+        service.updateUserProfile(request)
+                .enqueue(object : Callback<UserProfileResponse> {
+                    override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                        if (response.isSuccessful) {
+                            userProfile.value = response.body()
+                        } else {
+                            Log.e("ProfileRepository", response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                        Log.e("ProfileRepository", t.localizedMessage)
+                    }
+                })
     }
 }
