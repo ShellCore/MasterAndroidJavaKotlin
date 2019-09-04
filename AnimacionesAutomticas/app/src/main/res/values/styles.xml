@@ -6,14 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <!--Permitir las transiciones entre Activities-->
-        <item name="android:windowActivityTransitions">true</item>
-
-        <!--Definición de efectos de transición de entrada y salida-->
-        <item name="android:windowEnterTransition">@android:transition/explode</item>
-        <item name="android:windowExitTransition">@android:transition/explode</item>
-        <item name="android:duration">2000</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
