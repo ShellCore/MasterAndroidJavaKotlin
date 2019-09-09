@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     override fun onItemClick(adapter: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val item = items[position]
+//        val item = items[position]
+        val item = adapter?.getItemAtPosition(position) as Item
 
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.KEY_ID, item.id)
