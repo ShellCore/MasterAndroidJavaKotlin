@@ -3,6 +3,7 @@
     package="com.shell.android.offlinemovies">
 
     <application
+        android:name=".OfflineMoviesApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
