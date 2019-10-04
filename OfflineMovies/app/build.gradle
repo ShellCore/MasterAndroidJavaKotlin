@@ -19,6 +19,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        applicationVariants.all { variant ->
+            buildConfigField "String", "BASE_URL", project.property('MOVIEDB_BASE_URL')
+            buildConfigField "String", "API_KEY", project.property('MOVIEDB_API_KEY')
+        }
     }
 }
 
