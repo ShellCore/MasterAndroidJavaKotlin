@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.shell.android.offlinemovies.BuildConfig
 import com.shell.android.offlinemovies.R
 import com.shell.android.offlinemovies.data.MovieEntity
 import kotlinx.android.synthetic.main.fragment_movie.view.*
@@ -29,15 +31,18 @@ class MyMovieRecyclerViewAdapter(
 
     override fun getItemCount(): Int = mValues.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
 
-        val mIdView: TextView = mView.item_number
-        val mContentView: TextView = mView.content
+        private val imgCover: ImageView = mView.imgCover
 
         lateinit var movie: MovieEntity
 
         fun bind(movie: MovieEntity) {
             this.movie = movie
+            Glide.with(context)
+                .load("${BuildConfig.IMAGE_URL}${movie.posterPath}")
+                .centerCrop()
+                .into(imgCover)
         }
     }
 }
