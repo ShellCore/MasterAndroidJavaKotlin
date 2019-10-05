@@ -1,8 +1,8 @@
-package com.shell.android.offlinemovies.api.services.popular.response
+package com.shell.android.offlinemovies.data.remote.model
 
 
 import com.google.gson.annotations.SerializedName
-import com.shell.android.offlinemovies.data.MovieEntity
+import com.shell.android.offlinemovies.data.local.entity.MovieEntity
 
 data class PopularMoviesResponse(
     val page: Int,

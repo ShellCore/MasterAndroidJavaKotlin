@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shell.android.offlinemovies.BuildConfig
 import com.shell.android.offlinemovies.R
-import com.shell.android.offlinemovies.data.MovieEntity
+import com.shell.android.offlinemovies.data.local.entity.MovieEntity
 import kotlinx.android.synthetic.main.fragment_movie.view.*
 
 class MyMovieRecyclerViewAdapter(

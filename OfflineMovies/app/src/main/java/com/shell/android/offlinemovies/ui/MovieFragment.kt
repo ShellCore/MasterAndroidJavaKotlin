@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shell.android.offlinemovies.R
-import com.shell.android.offlinemovies.data.MovieEntity
+import com.shell.android.offlinemovies.data.local.entity.MovieEntity
 
 class MovieFragment : Fragment() {
 

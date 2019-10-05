@@ -1,4 +1,4 @@
-package com.shell.android.offlinemovies.data
+package com.shell.android.offlinemovies.data.local.entity
 
 
 import androidx.room.Entity
